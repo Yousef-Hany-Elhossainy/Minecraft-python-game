@@ -9,7 +9,7 @@ class Sky(Entity):
             parent = scene,
             model ='sphere',
             texture = sky_texture,
-            scale = 200,
+            scale = 250,
             double_sided = True
         )
 
@@ -17,11 +17,11 @@ class Sky(Entity):
 class Generate_Map():
     
     
-    def __init__(self,grass_texture,stone_texture,brick_texture,dirt_texture,sky_texture):
+    def __init__(self,grass_texture,stone_texture,brick_texture,dirt_texture,sky_texture,map_size):
         block_pick = grass_texture
-        map_size = 36
-        map_wall_height = 12
-        house_size = 4
+        map_size = map_size
+        map_wall_height = int(map_size/4)
+        house_size = int(map_wall_height/3)
         sky = Sky(sky_texture)
         for z in range(map_size):
             for x in range(map_size):

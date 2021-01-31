@@ -14,25 +14,41 @@ sky_texture = load_texture('assets/skybox.png')
 hand_texture = load_texture('assets/arm_texture.png')
 punch_sound = Audio('assets/punch_sound.wav',loop=False, autoplay=False)
 block_pick = grass_texture
+    
 
-def update():
-        global block_pick
+def get_user_choice():
+    """Prompts the user for its choice and return it."""
+    user_input = input('Your choice: ')
+    return user_input
+
+    
+
+def listen_for_input():
+    waiting_for_input = True
+    
+    while waiting_for_input:
+        print("Welcome to this simple minecraft game.")
+        print("1:Start Game")
+        print("q: Quit")
+        user_choice = get_user_choice()
+        if user_choice == '1':   
+            global map_size  
+            map_size = input("Enter map size(24-42)")
+            if int(map_size) > 42 or int(map_size) < 24 :
+                print("Invalid input")
+                continue
+            waiting_for_input = False
             
-        if held_keys['1']:
-            block_pick = grass_texture
-        if held_keys['2']:
-            block_pick = stone_texture
-        if held_keys['3']:
-            block_pick = brick_texture
-        if held_keys['4']:
-            block_pick = dirt_texture
+            
+        if user_choice == 'q':
+            app.quit()
 
-map = Generate_Map(grass_texture,stone_texture,brick_texture,dirt_texture,sky_texture)
+
+listen_for_input()
 
 hand = Hand(hand_texture)
-
 person = FirstPersonController(position = (2,2,2))
-
-
+map = Generate_Map(grass_texture,stone_texture,brick_texture,dirt_texture,sky_texture,int(map_size))
 app.run()
+
 
